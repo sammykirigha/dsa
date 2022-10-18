@@ -50,7 +50,7 @@ function customFlat(array, depth = 1) {
 	return result
 }
 
-console.log("<<<<<<>>>>>", customFlat(arr, 3))
+// console.log("<<<<<<>>>>>", customFlat(arr, 3))
 
 //Question 5 setTimeout output
 
@@ -65,5 +65,53 @@ function a() {
 // i = 3
 // i = 3
 // i = 3
+// a()
 
-a()
+//Question 6: Explain call, Apply and Bind
+var person = {
+	name: "smauel",
+	hello: function (thing) {
+		console.log(this.name + " says hello " + thing);
+	}
+}
+
+const user = {
+	name: "Kirigha",
+}
+
+//CALL =>  function takes an object which is going to become the context for this particular function
+//it accepts a list of argument but not array
+//it a method of an object which substitutes another object for the current object
+//the first argument is the object to be used as a current object
+person.hello.call(user, "world")
+
+//APPLY =>  works the same as call exept that it takes an array of arguements
+person.hello.apply(user, ["world"])
+
+//BIND =>it does not take a second param, it just takes a context and returns a completely new function with this context
+const newHello = person.hello.bind(user)
+newHello("world")
+
+// Question 7: Composition Polyfil
+function addFive(a) {
+	return a + 5;
+}
+
+function substractTwo(a) {
+	return a - 2;
+}
+
+function multiplyFour(a) {
+	return a * 4
+}
+
+const compose = (...functions) => {
+	return (args) => {
+		return functions.reduceRight((arg, fn) => fn(arg), args)
+	}
+}
+
+const evaluate = compose(addFive, substractTwo, multiplyFour);
+console.log(evaluate(5)); //23
+
+// Question 8: Pipe polyfil
